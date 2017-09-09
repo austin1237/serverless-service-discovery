@@ -12,4 +12,15 @@ let transformClientService = (clientService) =>{
     return dbService;
 }
 
+let transformClientQueryToDb = (query) =>{
+    const dbQuery = {
+        TableName: process.env.DYNAMODB_TABLE,
+        Key: {
+            serviceName: query.serviceName,
+        },
+    };
+    return dbQuery
+}
+
+exports.transformClientQueryToDb = transformClientQueryToDb;
 exports.transformClientService = transformClientService;

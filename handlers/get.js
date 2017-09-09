@@ -1,54 +1,24 @@
 'use strict';
 
-const AWS = require('aws-sdk'); // eslint-disable-line import/no-extraneous-dependencies
-const dynamoDb = new AWS.DynamoDB.DocumentClient();
+const serviceValidator = require('../validators/serviceValidator.js');
+const serviceAdapter = require('../adapters/serviceAdapter.js');
+const responseAdapter = require('../adapters/responseAdapter.js');
+const serviceProvider = require('../providers/serviceProvider.js');
 
 module.exports.get = (event, context, callback) => {
-    const errResponse = {
-        statusCode: 400
+    let query = event.queryStringParameters;
+    try{
+        serviceValidator.validateServiceQuery(query);
+    } catch (e) {
+        const clientError = responseAdapter.createClientError(err);
+        return callback(null, clientError);
     }
-    if (!event.queryStringParameters){
-        console.error('Validation Failed');
-        errResponse.body = JSON.stringify({ "message": 'serviceName must be included as a query param'});    
-        callback(null, errResponse);
-        return;
-    }
-    const serviceName = event.queryStringParameters.serviceName;
-
-    if (typeof serviceName === null  || typeof serviceName === undefined){
-        console.error('Validation Failed');
-        errResponse.body = JSON.stringify({ "message": 'serviceName must be included as a query param'});    
-        callback(null, errResponse);
-        return;
-    }
-
-    if (serviceName && typeof serviceName !== 'string'){
-        console.error('Validation Failed');
-        errResponse.body = JSON.stringify({ "message": 'serviceName must be a string'});    
-        callback(null, errResponse);
-        return;
-    }
-
-    const dbParams = {
-        TableName: process.env.DYNAMODB_TABLE,
-        Key: {
-            serviceName: serviceName,
-        },
-    };
-
-    dynamoDb.get(dbParams, (error, result) => {
-        // handle potential errors
-        if (error) {
-            console.error(error);
-            callback(new Error('Couldn\'t fetch the todo item.'));
-            return;
-        }
-
-        // create a response
-        const response = {
-            statusCode: 200,
-            body: JSON.stringify(result.Item),
-        };
-        callback(null, response);
-  });
+    let dbQuery = serviceAdapter.transformClientQueryToDb(query);
+    return serviceProvider.getServiceByName(dbQuery).then((service) =>{
+        const response = responseAdapter.createSuccessfullResponse(service);
+        return callback(null, response);
+    }).catch((err) =>{
+        const serverError = responseAdapter.createInteralServerError(err)
+        return callback(null, serverError);
+    });
 }

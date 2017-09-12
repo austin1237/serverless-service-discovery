@@ -10,6 +10,6 @@ jobs:
       - run:
           name: install serverless
           command: 'sudo npm install -g serverless'
-      -run: 
+      - run: 
           name: install repo dependencies
           command: 'sudo npm install '

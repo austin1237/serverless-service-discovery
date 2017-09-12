@@ -12,5 +12,5 @@ jobs:
           command: 'sudo npm install -g npm@latest'
       - run:
           name: install serverless
-          command: 'sudo npm install serverless -g'
+          command: 'npm install -g serverless'
 

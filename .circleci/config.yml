@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/serverless-service-discovery
+    # The primary container is an instance of the first list image listed. Your build commands run in this container.
+    docker:
+      - image: circleci/node:6.1
+    steps:
+      - checkout
+      - run:
+          name: update npm
+          command: 'sudo npm install -g npm@latest'
+      - run:
+          name: install serverless
+          command: 'sudo npm install serverless -g'
+

@@ -9,5 +9,5 @@ jobs:
       - checkout
       - run:
           name: install serverless
-          command: 'npm install -g serverless'
+          command: 'sudo npm install -g serverless'
 

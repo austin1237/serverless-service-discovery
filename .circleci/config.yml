@@ -10,6 +10,12 @@ jobs:
       - run:
           name: install serverless
           command: 'sudo npm install -g serverless'
+      - run:
+        name: install mocha
+        command: 'sudo npm install -g mocha'
       - run: 
           name: install repo dependencies
           command: 'sudo npm install '
+      -run:
+          name: run tests
+          command: 'mocha mocha --recursive'

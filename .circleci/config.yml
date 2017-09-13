@@ -11,8 +11,8 @@ jobs:
           name: install serverless
           command: 'sudo npm install serverless -g'
       - run:
-        name: install mocha
-        command: 'sudo npm install mocha -g'
+          name: install mocha
+          command: 'sudo npm install mocha -g'
       - run: 
           name: install repo dependencies
           command: 'sudo npm install '

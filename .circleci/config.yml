@@ -19,3 +19,12 @@ jobs:
       - run:
           name: run tests
           command: 'cd ~/serverless-service-discovery && mocha --recursive'
+      
+      - deploy:
+          name: Serverless Deploy
+          command: |
+          if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            echo 'deploying prod'
+          else
+            echo 'deploying dev'
+          fi

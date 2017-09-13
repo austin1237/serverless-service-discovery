@@ -18,4 +18,4 @@ jobs:
           command: 'sudo npm install '
       - run:
           name: run tests
-          command: 'mocha mocha --recursive'
+          command: 'cd ~/repo && mocha mocha --recursive'

@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/repo
+    working_directory: ~/serverless-service-discovery
     # The primary container is an instance of the first list image listed. Your build commands run in this container.
     docker:
       - image: circleci/node:6.10.3
@@ -18,4 +18,4 @@ jobs:
           command: 'sudo npm install '
       - run:
           name: run tests
-          command: 'cd ~/repo && mocha mocha --recursive'
+          command: 'cd ~/repo && mocha --recursive'

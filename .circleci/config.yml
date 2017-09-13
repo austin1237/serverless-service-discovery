@@ -18,4 +18,4 @@ jobs:
           command: 'sudo npm install '
       - run:
           name: run tests
-          command: 'cd ~/repo && mocha --recursive'
+          command: 'cd ~/serverless-service-discovery && mocha --recursive'

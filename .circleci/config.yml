@@ -2,7 +2,6 @@ version: 2
 jobs:
   build:
     working_directory: ~/serverless-service-discovery
-    # The primary container is an instance of the first list image listed. Your build commands run in this container.
     docker:
       - image: circleci/node:6.10.3
     steps:
@@ -24,7 +23,7 @@ jobs:
           name: Serverless Deploy
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              echo 'deploying prod'
+              serverless deploy --stage=prod
             else
               serverless deploy --stage=dev
             fi

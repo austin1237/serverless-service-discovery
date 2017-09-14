@@ -26,5 +26,5 @@ jobs:
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               echo 'deploying prod'
             else
-              echo 'deploying dev'
+              serverless deploy --stage=dev
             fi

@@ -23,8 +23,8 @@ jobs:
       - deploy:
           name: Serverless Deploy
           command: |
-          if [ "${CIRCLE_BRANCH}" == "master" ]; then
-            echo 'deploying prod'
-          else
-            echo 'deploying dev'
-          fi
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              echo 'deploying prod'
+            else
+              echo 'deploying dev'
+            fi

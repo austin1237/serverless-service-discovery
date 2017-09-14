@@ -1,0 +1,29 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/serverless-service-discovery
+    docker:
+      - image: circleci/node:6.10.3
+    steps:
+      - checkout
+      - run:
+          name: install serverless
+          command: 'sudo npm install serverless -g'
+      - run:
+          name: install mocha
+          command: 'sudo npm install mocha -g'
+      - run: 
+          name: install repo dependencies
+          command: 'sudo npm install '
+      - run:
+          name: run tests
+          command: 'cd ~/serverless-service-discovery && mocha --recursive'
+      
+      - deploy:
+          name: Serverless Deploy
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              serverless deploy --stage=prod
+            else
+              serverless deploy --stage=dev
+            fi

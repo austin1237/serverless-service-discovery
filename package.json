@@ -7,5 +7,8 @@
   "dependencies": {
     "uuid": "^2.0.3",
     "validator": "^8.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2"
   }
 }

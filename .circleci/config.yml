@@ -18,6 +18,9 @@ jobs:
       - run:
           name: run tests
           command: 'cd ~/serverless-service-discovery && mocha --recursive'
+      - run:
+        name: test exit code with dev null
+        command: 'serverless deploy > /dev/null'
       
       - deploy:
           name: Serverless Deploy

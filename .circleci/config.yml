@@ -23,7 +23,7 @@ jobs:
           name: Serverless Deploy
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              serverless deploy --stage=prod
+              serverless deploy --stage=prod > /dev/null
             else
-              serverless deploy --stage=dev
+              serverless deploy --stage=dev > /dev/null
             fi

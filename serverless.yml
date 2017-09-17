@@ -20,7 +20,7 @@ provider:
 
 functions:
   create:
-    handler:handlers/post.post
+    handler: handlers/post.post
     events:
       - http:
           path: services
